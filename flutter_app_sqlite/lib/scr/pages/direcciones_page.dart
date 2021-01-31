@@ -1,10 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app_sqlite/scr/services/scanlist_provider.dart';
+import 'package:provider/provider.dart';
 
 class DireccionesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('Direcciones Page'),
+    final scanListProvider = Provider.of<ScanListProvider>(context);
+    final scans = scanListProvider.scans;
+
+    return ListView.builder(
+      itemCount: scans.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ListTile(
+          leading: Icon(
+            Icons.map,
+            color: Theme.of(context).primaryColor,
+          ),
+          title: Text(scans[index].valor),
+          subtitle: Text(scans[index].id.toString()),
+          trailing: Icon(Icons.keyboard_arrow_down),
+          onTap: () {
+            print(scans[index].id);
+          },
+        );
+      },
     );
   }
 }

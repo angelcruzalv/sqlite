@@ -3,6 +3,7 @@ import 'package:flutter_app_sqlite/scr/models/scan_model.dart';
 import 'package:flutter_app_sqlite/scr/pages/direcciones_page.dart';
 import 'package:flutter_app_sqlite/scr/pages/mapas_page.dart';
 import 'package:flutter_app_sqlite/scr/services/db_provider.dart';
+import 'package:flutter_app_sqlite/scr/services/scanlist_provider.dart';
 import 'package:flutter_app_sqlite/scr/services/ui_provider.dart';
 import 'package:flutter_app_sqlite/scr/widgets/custom_navbar.dart';
 import 'package:flutter_app_sqlite/scr/widgets/scann_button.dart';
@@ -16,11 +17,18 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('QR Reader'),
         actions: [
-          Icon(Icons.delete_forever),
+          IconButton(
+            icon: Icon(Icons.delete_forever),
+            onPressed: () {
+              scanListProvider.deleteAll();
+            },
+          )
         ],
       ),
       body: _HomePageBody(),
@@ -39,15 +47,16 @@ class _HomePageBody extends StatelessWidget {
     final uiProvider = Provider.of<UiProvider>(context);
     final currentIndex = uiProvider.selectedMenuOpt;
 
-    //TODO: Temporal leer la base de datos
-    DBProvider.db.database;
-    final tempScan = new ScanModel(valor: 'https://google.com');
-    DBProvider.db.getScanById(5).then((scan) => print(scan.valor));
+    //TODO: usar el scanlistprovider
+    final scanListProvider =
+        Provider.of<ScanListProvider>(context, listen: false);
 
     switch (currentIndex) {
       case 0:
+        scanListProvider.getScansByTipo('geo');
         return MapasPage();
       case 1:
+        scanListProvider.getScansByTipo('http');
         return DireccionesPage();
       default:
         return MapasPage();

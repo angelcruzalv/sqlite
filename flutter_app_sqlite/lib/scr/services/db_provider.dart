@@ -64,7 +64,7 @@ class DBProvider {
     if (res.isNotEmpty) {
       return res.map((e) => ScanModel.fromJson(e)).toList();
     } else {
-      return null;
+      return [];
     }
   }
 
@@ -76,7 +76,26 @@ class DBProvider {
     if (res.isNotEmpty) {
       return res.map((e) => ScanModel.fromJson(e)).toList();
     } else {
-      return null;
+      return [];
     }
+  }
+
+  Future<int> updateScan(ScanModel updateScan) async {
+    final db = await database;
+    final res = await db.update('Scans', updateScan.toJson(),
+        where: 'id = ? ', whereArgs: [updateScan.id]);
+    return res;
+  }
+
+  Future<int> deleteScanById(int id) async {
+    final db = await database;
+    final res = await db.delete('Scans', where: 'id = ?', whereArgs: [id]);
+    return res;
+  }
+
+  Future<int> deleteAllScans() async {
+    final db = await database;
+    final res = await db.delete('Scans');
+    return res;
   }
 }
