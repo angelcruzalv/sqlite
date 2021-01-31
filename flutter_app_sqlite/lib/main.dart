@@ -28,8 +28,7 @@ class MyApp extends StatelessWidget {
           'home': (BuildContext context) => HomePage(),
           'mapa': (_) => MapasPage(),
         },
-        theme: ThemeData(
-            primaryColor: Colors.greenAccent, accentColor: Colors.red),
+        theme: ThemeData(primaryColor: Colors.cyan, accentColor: Colors.red),
       ),
     );
   }
