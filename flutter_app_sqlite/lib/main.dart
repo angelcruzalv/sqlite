@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_sqlite/scr/pages/home_page.dart';
+import 'package:flutter_app_sqlite/scr/pages/mapa_page.dart';
 import 'package:flutter_app_sqlite/scr/pages/mapas_page.dart';
 
 import 'package:flutter_app_sqlite/scr/services/scanlist_provider.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
         initialRoute: 'home',
         routes: {
           'home': (BuildContext context) => HomePage(),
-          'mapa': (_) => MapasPage(),
+          'mapas': (_) => MapasPage(),
+          'mapa': (_) => MapaPage(),
         },
         theme: ThemeData(primaryColor: Colors.cyan, accentColor: Colors.red),
       ),

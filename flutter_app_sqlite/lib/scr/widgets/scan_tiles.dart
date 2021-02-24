@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_sqlite/scr/services/scanlist_provider.dart';
+import 'package:flutter_app_sqlite/scr/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class ScanTiles extends StatelessWidget {
@@ -49,7 +50,7 @@ class ScanTiles extends StatelessWidget {
             subtitle: Text(scans[index].id.toString()),
             trailing: Icon(Icons.keyboard_arrow_down),
             onTap: () {
-              print(scans[index].id);
+              launchURL(context, scans[index]);
             },
           ),
         );
